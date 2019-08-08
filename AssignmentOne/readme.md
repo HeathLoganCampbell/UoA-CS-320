@@ -1,6 +1,8 @@
 # Assignment One
 Make a program which finds the shortest path between two points using only the corners of the tiles
 
+![drawn](./readme-resources/drawn-demo.png)
+
 ## Versions
 ### v0.0.1
 run command
