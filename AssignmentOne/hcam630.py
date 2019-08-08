@@ -63,7 +63,6 @@ Each corner is a node, giving us a maximime of
 12 path and a min of 3 in the corners.
 '''
 
-
 def dijkstra(map, position):
     height = len(map) + 1
     width = len(map[0]) + 1
@@ -104,37 +103,42 @@ while(True):
 
     # Get all possible next paths
     # We could move up
-    realMap[startPos[0] - 1][startPos[1]
-                             ] = map[startPos[0] - 1][startPos[1]]
-    # We could move up right
-    realMap[startPos[0] - 1][startPos[1] +
-                             1] = map[startPos[0] - 1][startPos[1] + 1 - 1]
-    #  We could move right
-    realMap[startPos[0]][startPos[1] +
-                         1] = map[startPos[0] - 1][startPos[1] - 1 + 1]
 
-    # round 2
-    currentWeight = realMap[startPos[0] - 1][startPos[1]]
-    realMap[startPos[0] - 1 - 1][startPos[1]] = currentWeight + map[startPos[0] - 1 - 1][startPos[1]]
-
-    realMap[startPos[0] - 1 - 1][startPos[1] + 1] = currentWeight + map[startPos[0] - 1 - 1][startPos[1]]
-
-    nextPos = currentWeight + map[startPos[0] - 1][startPos[1]+1]
-    if(realMap[startPos[0] - 1 - 1][startPos[1] + 1] > nextPos):
-      realMap[startPos[0] - 1 - 1][startPos[1] + 1] = map[startPos[0] - 1][startPos[1]+1]
-
-    # round 3
-    currentWeight = realMap[startPos[0] - 1][startPos[1] + 1]
-    nextPos = currentWeight + map[startPos[0] - 1 - 1][startPos[1] + 1]
-    if(realMap[startPos[0] - 1 - 1][startPos[1] + 1] > nextPos):
-      realMap[startPos[0] - 1 - 1][startPos[1] + 1] = nextPos
-
-    nextPos = currentWeight + map[startPos[0] - 1 - 1][startPos[1] + 1]
-    if(realMap[startPos[0] - 1 - 1][startPos[1] + 1 + 1] > nextPos):
-      realMap[startPos[0] - 1 - 1][startPos[1] + 1 + 1] = nextPos
-   
-      nextPos = currentWeight + map[startPos[0] - 1 - 1][startPos[1] + 1]
-    if(realMap[startPos[0] - 1][startPos[1] + 1 + 1] > nextPos):
-      realMap[startPos[0] - 1][startPos[1] + 1 + 1] = nextPos
+    seen = []
+    visisted = []
     
+    currentPos = startPos
+    while(True):
+      for pos in [(-1,0,0,1), (-1, 1, 0, 1), (0, 1, 0, 1)]:
+        vertY = currentPos[0] + pos[0]
+        vertX = currentPos[1] + pos[1]
+        if(vertY < 0 or vertY >= len(realMap)):
+          continue
+        if(vertX < 0 or vertX >= len(realMap[0])):
+          continue
+        vertixLoc = realMap[vertY][vertX]
+
+        weightY = currentPos[0] + pos[2] - 1
+        weightX = currentPos[1] + pos[3] - 1
+        if(weightY < 0 or weightY >= len(map)):
+          continue
+        if(weightX < 0 or weightX >= len(map[0])):
+          continue
+        
+        if(currentPos[0] < 0 or currentPos[0] >= len(realMap)):
+          continue
+        if(currentPos[1] < 0 or currentPos[1] >= len(realMap[0])):
+          continue
+        
+
+        weights = realMap[currentPos[0]][currentPos[1]] + map[weightY][weightX]
+        if(vertixLoc > weights):
+          realMap[currentPos[0] + pos[0]][currentPos[1] + pos[1]] = weights
+          seen.append((currentPos[0] + pos[0], currentPos[1] + pos[1], weights))
+      seen.sort(key=lambda tup: tup[2])
+      print(seen)
+      currentPos = seen.pop(0)
+      if(len(seen) == 0):
+        break
+
     print(realMap)
