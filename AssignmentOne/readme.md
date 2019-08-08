@@ -10,6 +10,12 @@ Make a program which finds the shortest path between two points using only the c
   * So lets start with a base case of ignoring diangles 
 * So how can we check what to tiles there could be
 
+## Run
+This command will run the program with the inputs from tests/sample-questions.txt
+```
+Python ./hcam630.py < ./tests/sample-questions.txt
+```
+
 ## Versions
 ### v0.0.1
 run command
