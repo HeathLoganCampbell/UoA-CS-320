@@ -3,6 +3,11 @@ Make a program which finds the shortest path between two points using only the c
 
 ![drawn](./readme-resources/drawn-demo.png)
 
+## Thoughts
+* Lets imagine each edge is a tower and from any tower next to each other which aren't diangles, we have 2 paths. One of those paths will be shorter than the other
+  * So lets start with a base case of ignoring diangles 
+* So how can we check what to tiles there could be
+
 ## Versions
 ### v0.0.1
 run command
