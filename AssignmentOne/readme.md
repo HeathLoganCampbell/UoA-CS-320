@@ -3,6 +3,8 @@ Make a program which finds the shortest path between two points using only the c
 
 ![drawn](./readme-resources/drawn-demo.png)
 
+![result](./readme-resources/result.png)
+
 ## Thoughts
 * Lets imagine each edge is a tower and from any tower next to each other which aren't diangles, we have 2 paths. One of those paths will be shorter than the other
   * So lets start with a base case of ignoring diangles 
@@ -31,3 +33,8 @@ The First line is the map in the format
 ```
 
 The second-th lines are the option paths from position (0, height) aka the bottom left
+
+### v1.0.0
+Bit of a jump but it's working.
+* We use a min-heap to remove the need of sorting the seen variable everytime
+* We use 2 arrays for the map, map and RealMap which is the weights of the tiles then the nodes distances respectively (probably should have given them better names but oh well)

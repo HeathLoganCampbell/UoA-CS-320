@@ -7,20 +7,24 @@ THIS PROGRAM FINDS THE SHORTEST PATH IN A GRID
 import heapq
 import sys
 
-
 while(True):
     predecessor = (sys.stdin.readline().rstrip("\n"))
+    # if line is blank, we leave
     if(predecessor == ''):
         break
     size = [int(s) for s in predecessor.split(' ') if s != '']
 
     height = size[0]
     width = size[1]
+    # if size is nothing, we leave
     if(width == height == 0):
         break
+    # We will have n + 1 nodes where n is tiles
+    # because we always have an extra node
     height = height + 1
     width = width + 1
 
+    # map of tile weights
     map = []
     for i in range(size[0]):
         predecessor = (sys.stdin.readline().rstrip("\n"))
@@ -30,21 +34,25 @@ while(True):
         map.append(row)
     bottomLeftChunk = (0, len(map) + 1)
 
+    # Set all values to basically infinity
+    # map of nodes, with the distances to get to them
     realMap = []
     for i in range(height):
         realMap.append([10000000000] * width)
+    # Format of edge is (Weight, Y, X), this is so we don't 
+    # have to modify heap, as it'll use the first element
     startPos = (0,height - 1, 0)
     visted = [startPos]
     realMap[startPos[1]][startPos[2]] = startPos[0]
 
-    # Get all possible next paths
-    # We could move up
-
+    # List of next paths
     seen = []
+    # Use a heap to miminize shorting
     heapq.heapify(seen) 
 
     currentPos = startPos
     while(True):
+      # all possible ways we can go
       for pos in [(-1,0,0,1), (-1, 1, 0, 1), (0, 1, 0, 1),   (1, 1, 0, 1), (1, 0, 0, 1), (1, -1, 0, 1), (0, -1, 0, 1), (-1, -1, 0, 1)]:
         vertY = currentPos[1] + pos[0]
         vertX = currentPos[2] + pos[1]
@@ -71,7 +79,7 @@ while(True):
         if(vertixLoc > weights):
           realMap[currentPos[1] + pos[0]][currentPos[2] + pos[1]] = weights
           heapq.heappush(seen, (weights, currentPos[1] + pos[0], currentPos[2] + pos[1])) 
-          # Might be wrong?
+          # If we made it to the top left, just end the program and print the answer
           if(currentPos[1] + pos[0] == 0 and currentPos[2] + pos[1] == width - 1 ):
             break
      
