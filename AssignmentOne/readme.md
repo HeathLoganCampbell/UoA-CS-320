@@ -36,5 +36,6 @@ The second-th lines are the option paths from position (0, height) aka the botto
 
 ### v1.0.0
 Bit of a jump but it's working.
+* I changed the whole idea of the program as to make it easier, I first filled out a first basic examples by hand.
 * We use a min-heap to remove the need of sorting the seen variable everytime
 * We use 2 arrays for the map, map and RealMap which is the weights of the tiles then the nodes distances respectively (probably should have given them better names but oh well)
